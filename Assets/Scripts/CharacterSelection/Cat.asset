@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4543257ae110384bb4fc857385459b2, type: 3}
+  m_Name: Cat
+  m_EditorClassIdentifier: 
+  characterName: Cat
+  previewImage: {fileID: 2666440529074131282, guid: a888b91cf9527e44489a1c69875fad52, type: 3}
+  unownedImage: {fileID: 2666440529074131282, guid: ee04ef65c482ccc4c8ffdc39f2605f2d, type: 3}
+  characterPrefab: {fileID: 2589992013796469436, guid: 07a65f17a54aecb438c483d161cc1106, type: 3}
+  unlockType: 0
+  unlockConditionText: Play 99 Times
+  price: 0
+  isDefault: 0
