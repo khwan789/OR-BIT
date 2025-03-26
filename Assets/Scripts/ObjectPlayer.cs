@@ -207,7 +207,7 @@ public abstract class ObjectPlayer : MonoBehaviour
         animator.SetBool("isSliding", false);
     }
 
-    protected virtual void InvincState(float additionalTime = 1.5f)
+    protected virtual void InvincState(float additionalTime = 1f)
     {
         isInvinc = true;
         // Extend invincibility time
