@@ -4942,8 +4942,8 @@ MonoBehaviour:
   canvas: {fileID: 441702503}
   characterDataList:
   - {fileID: 11400000, guid: 154c7d197af72db4aaaf6885d0c801e7, type: 2}
-  - {fileID: 11400000, guid: 84bb752029823cb4cb731d0f6df87517, type: 2}
   - {fileID: 11400000, guid: cff6c400f542ec04cbe88855c6ddb45d, type: 2}
+  - {fileID: 11400000, guid: 84bb752029823cb4cb731d0f6df87517, type: 2}
   - {fileID: 11400000, guid: ef88cdf0f578f63478eec8be9cf22808, type: 2}
   leftButton: {fileID: 55442945}
   rightButton: {fileID: 548140862}

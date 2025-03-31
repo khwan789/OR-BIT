@@ -27,8 +27,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 14.7, y: 48.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDistance: 20
   isFirstObstacle: 0
+  isTutorialObstacle: 1
+  tutorialObject: {fileID: 4941138259275473562, guid: 55b0cdf27459211488f4db9f7df5c380, type: 3}
   collectableItems:
   - itemName: 
     prefab: {fileID: 0}
@@ -55,7 +57,7 @@ MonoBehaviour:
     weight: 50
   - itemName: 
     prefab: {fileID: 1050432726417154929, guid: 111999e62c44efb4eb25047e3afca648, type: 3}
-    weight: 3
+    weight: 5
   - itemName: 
     prefab: {fileID: 1050432726417154929, guid: 8d1cc4540bbae724da4a4643be97e1e9, type: 3}
-    weight: 1
+    weight: 2

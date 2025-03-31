@@ -36,7 +36,7 @@ public class AchievementManager : MonoBehaviour
 
     private void CatAchievement()
     {
-        if (gameManager.GetTotalGamePlay() >= 99 && !CharacterManager.IsCharacterOwned("Cat"))
+        if (gameManager.currentRound >= 3 && !CharacterManager.IsCharacterOwned("Cat"))
         {
             //play 9 times
             CharacterManager.UnlockCharacter("Cat");
