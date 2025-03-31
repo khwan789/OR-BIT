@@ -15,22 +15,25 @@ public class GameManager : MonoBehaviour
     private int totalRound = 0;
     public int totalGamePlay = 0;
     public bool isTutorialCleared = false;
-    // Speed multiplier: °ÔÀÓ Áß ¼Óµµ Áõ°¡½Ã »ç¿ë
+    // Speed multiplier: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     public float speedMultiplier = 1f;
 
-    // PlayerPrefs Å°¸¦ »ó¼ö·Î Á¤ÀÇ
+    // PlayerPrefs Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private const string HighScoreKey = "HighScore";
     private const string TotalGoldKey = "TotalGold";
     private const string TotalRoundKey = "TotalRound";
     private const string TotalGamePlayKey = "TotalGamePlay";
     private const string TutorialClearedKey = "TutorialCleared";
 
+    public AdObserver adObserver;
+    public GoogleObserver googleObserver;
+
     private void Awake()
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120;
 
-        // ½Ì±ÛÅæ ÃÊ±âÈ­
+        // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         if (Instance == null)
         {
             Instance = this;
@@ -45,7 +48,7 @@ public class GameManager : MonoBehaviour
         LoadGame();
     }
 
-    // ºÒÇÊ¿äÇÑ Update() Á¦°Å
+    // ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ Update() ï¿½ï¿½ï¿½ï¿½
 
     public void StartGame()
     {
@@ -63,7 +66,7 @@ public class GameManager : MonoBehaviour
     {
         isPlaying = false;
         Time.timeScale = 0;
-        // °ÔÀÓ ¿À¹ö ½Ã Á¡¼ö °»½Å
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (currentScore > highScore)
         {
             highScore = currentScore;

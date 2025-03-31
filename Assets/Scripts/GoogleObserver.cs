@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GoogleObserver : MonoBehaviour
 {
+	public static GoogleObserver Get => GameManager.Instance.googleObserver;
+	
     private void Start()
     {
         PlayGamesPlatform.Activate();
@@ -11,9 +13,16 @@ public class GoogleObserver : MonoBehaviour
 
     private void SignInWithGoogle()
     {
-        Social.localUser.Authenticate(success =>
+        Social.localUser.Authenticate(isSuccess =>
         {
-	        
+	        if (isSuccess)
+	        {
+		        Debug.Log("Google Play Games sign-in successful");
+	        }
+	        else
+	        {
+		        Debug.Log("Google Play Games sign-in failed");
+	        }
         });
     }
     
