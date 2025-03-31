@@ -98,3 +98,5 @@ Count_Sheap/IOSBUILD
 Count_Sheap/Assets/PathResourcesBundle
 iOSBuild
 Count_Sheap/Recordings
+*.sln
+*.csproj
