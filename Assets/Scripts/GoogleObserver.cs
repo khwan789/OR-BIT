@@ -40,4 +40,9 @@ public class GoogleObserver : MonoBehaviour
 			}
 		});
 	}
+
+	public void ShowLeaderboard()
+	{
+		Social.ShowLeaderboardUI();
+	}
 }
