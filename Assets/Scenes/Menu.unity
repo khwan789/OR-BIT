@@ -1520,6 +1520,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184155851}
   m_CullTransparentMesh: 1
+--- !u!1 &185496236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 185496238}
+  - component: {fileID: 185496237}
+  m_Layer: 0
+  m_Name: InternetConnectionMonitor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &185496237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185496236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd96cacd121d6bc4189414aa8405618a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noInternetPopupPrefab: {fileID: 1073605305996728408, guid: bee3620a87c44f04687be1f00ed6fc90, type: 3}
+  checkInterval: 3
+--- !u!4 &185496238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185496236}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.2956386, y: 21.028872, z: -0.25564522}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &185559449
 GameObject:
   m_ObjectHideFlags: 0
@@ -15540,6 +15586,14 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 7899925368273033209, guid: 1457dca48aee12e4c819287d76d6dd3d, type: 3}
+      propertyPath: adObserver
+      value: 
+      objectReference: {fileID: 7248030092057923459, guid: 8e4626c200dbf5a48bf621b401ca002b, type: 3}
+    - target: {fileID: 7899925368273033209, guid: 1457dca48aee12e4c819287d76d6dd3d, type: 3}
+      propertyPath: googleObserver
+      value: 
+      objectReference: {fileID: 7742438362484468243, guid: 8e4626c200dbf5a48bf621b401ca002b, type: 3}
+    - target: {fileID: 7899925368273033209, guid: 1457dca48aee12e4c819287d76d6dd3d, type: 3}
       propertyPath: speedMultiplier
       value: 1
       objectReference: {fileID: 0}
@@ -15624,3 +15678,4 @@ SceneRoots:
   - {fileID: 1404384152}
   - {fileID: 1701218439}
   - {fileID: 5926595017778178063}
+  - {fileID: 185496238}

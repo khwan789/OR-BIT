@@ -70,10 +70,15 @@ public class GameManager : MonoBehaviour
         if (currentScore > highScore)
         {
             highScore = currentScore;
+            googleObserver.SetLeaderboardScore((int)highScore);
         }
         totalRound += currentRound;
         SaveGame();
         CheckAchievementsCleared();
+        if(currentRound >= 1 && totalGamePlay % 2 == 0)
+        {
+            adObserver.ShowRewardAd(() => { });
+        }
     }
 
     public void IncreaseScore(float amount)
