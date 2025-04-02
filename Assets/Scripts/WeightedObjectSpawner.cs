@@ -52,7 +52,7 @@ public class WeightedObjectSpawner : MonoBehaviour
         {
             if (!isFirstObstacle && !isTutorialObstacle)
                 SpawnRandomObject();
-            else if (isTutorialObstacle)
+            else if (!isFirstObstacle && isTutorialObstacle)
                 SpawnTutorialObject();
         }
         else
