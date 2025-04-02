@@ -1,4 +1,5 @@
 using GooglePlayGames;
+using System.Collections;
 using UnityEngine;
 
 public class GoogleObserver : MonoBehaviour
@@ -45,4 +46,26 @@ public class GoogleObserver : MonoBehaviour
 	{
 		Social.ShowLeaderboardUI();
 	}
+
+    /*IEnumerator CheckForUpdate()
+    {
+        PlayAsyncOperation<AppUpdateInfo, AppUpdateErrorCode> appUpdateInfoOperation =
+          appUpdateManager.GetAppUpdateInfo();
+
+        // Wait until the asynchronous operation completes.
+        yield return appUpdateInfoOperation;
+
+        if (appUpdateInfoOperation.IsSuccessful)
+        {
+            var appUpdateInfoResult = appUpdateInfoOperation.GetResult();
+            // Check AppUpdateInfo's UpdateAvailability, UpdatePriority,
+            // IsUpdateTypeAllowed(), ... and decide whether to ask the user
+            // to start an in-app update.
+        }
+        else
+        {
+            // Log appUpdateInfoOperation.Error.
+        }
+    }*/
+
 }
