@@ -123,6 +123,7 @@ public class CharacterItemUI : MonoBehaviour
                     GameManager.Instance.SpendGold(characterData.price);
                     CharacterManager.UnlockCharacter(characterData.characterName);
                     UpdateStatus();
+                    UpdatePreview();
                 }
                 else
                 {
