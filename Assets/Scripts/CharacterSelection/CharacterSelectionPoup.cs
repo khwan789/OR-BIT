@@ -77,21 +77,40 @@ public class CharacterSelectionPopup : MonoBehaviour
 
     public void ContentLeft()
     {
+        // Get the RectTransform for the content
+        RectTransform contentRect = contentParent.GetComponent<RectTransform>();
+        // Enable the right button since we are moving left
         rightButton.SetActive(true);
-        contentParent.transform.position += new Vector3(itemWidth, 0, 0);
-        if (contentParent.transform.position.x == 0)
+
+        // Calculate the effective move amount factoring in the UI scale.
+        Vector2 moveAmount = new Vector2(itemWidth, 0);
+
+        // Increase the anchoredPosition.x by moveAmount (moving content rightward relative to its parent)
+        contentRect.anchoredPosition += moveAmount;
+
+        // If the new anchored position is approximately at the starting position (i.e. x close to 0), disable the left button
+        if (Mathf.Approximately(contentRect.anchoredPosition.x, 0))
         {
             leftButton.SetActive(false);
         }
     }
 
+
     public void ContentRight()
     {
         leftButton.SetActive(true);
-        contentParent.transform.position -= new Vector3(itemWidth, 0, 0);
-        if(contentParent.transform.position.x == maxContentPosX)
+        RectTransform contentRect = contentParent.GetComponent<RectTransform>();
+
+        // Instead of using transform.position, use anchoredPosition.
+        // The movement amount may need to be scaled by the canvas scale factor:
+        Vector2 moveAmount = new Vector2(itemWidth, 0);
+
+        contentRect.anchoredPosition -= moveAmount;
+
+        if (Mathf.Approximately(contentRect.anchoredPosition.x, maxContentPosX))
         {
             rightButton.SetActive(false);
         }
     }
+
 }

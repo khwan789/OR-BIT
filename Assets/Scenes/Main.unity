@@ -6798,26 +6798,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObjectSpawner
       objectReference: {fileID: 0}
-    - target: {fileID: 3303727627998355947, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
-      propertyPath: tutorialObject
-      value: 
-      objectReference: {fileID: 1050432726417154929, guid: 06b927e15cc5288449077ef22197b836, type: 3}
-    - target: {fileID: 3303727627998355947, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
-      propertyPath: isTutorialObstacle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23.710049
@@ -6857,10 +6837,6 @@ PrefabInstance:
     - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8331,6 +8307,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObjectSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 3303727627998355947, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
+      propertyPath: tutorialObject
+      value: 
+      objectReference: {fileID: 4941138259275473562, guid: 55b0cdf27459211488f4db9f7df5c380, type: 3}
+    - target: {fileID: 3303727627998355947, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
+      propertyPath: isTutorialObstacle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25.714413
@@ -8989,18 +8973,6 @@ PrefabInstance:
       value: ObjectSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.4634686
       objectReference: {fileID: 0}
@@ -9039,10 +9011,6 @@ PrefabInstance:
     - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9741,8 +9709,16 @@ PrefabInstance:
       value: ObjectSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 3303727627998355947, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
+      propertyPath: tutorialObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303727627998355947, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
       propertyPath: isFirstObstacle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303727627998355947, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
+      propertyPath: isTutorialObstacle
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6405375808316262600, guid: 5abe6c6e876f66f49adcb6dd5019133b, type: 3}
       propertyPath: m_LocalScale.x

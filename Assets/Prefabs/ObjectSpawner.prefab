@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDistance: 20
   isFirstObstacle: 0
-  isTutorialObstacle: 1
-  tutorialObject: {fileID: 4941138259275473562, guid: 55b0cdf27459211488f4db9f7df5c380, type: 3}
+  isTutorialObstacle: 0
+  tutorialObject: {fileID: 0}
   collectableItems:
   - itemName: 
     prefab: {fileID: 0}
