@@ -75,9 +75,10 @@ public class GameManager : MonoBehaviour
         totalRound += currentRound;
         SaveGame();
         CheckAchievementsCleared();
+        
         if(currentRound >= 1 && totalGamePlay % 2 == 0)
         {
-            adObserver.ShowRewardAd(() => { });
+            adObserver.ShowAd();
         }
     }
 

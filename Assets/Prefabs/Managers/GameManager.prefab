@@ -48,7 +48,11 @@ MonoBehaviour:
   isPlaying: 0
   currentScore: 0
   currentRound: 0
+  totalGamePlay: 0
+  isTutorialCleared: 0
   speedMultiplier: 1
+  adObserver: {fileID: 0}
+  googleObserver: {fileID: 0}
 --- !u!81 &3143975522756570158
 AudioListener:
   m_ObjectHideFlags: 0

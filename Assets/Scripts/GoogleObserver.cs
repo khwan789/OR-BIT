@@ -34,7 +34,7 @@ public class GoogleObserver : MonoBehaviour
 
     public void SetLeaderboardScore(int score)
 	{
-		Social.ReportScore(score, GPGSIds.leaderboard_high_score, success =>
+		Social.ReportScore(score, GPGSIds.leaderboard_highscore, success =>
 		{
 			if (success)
 			{
@@ -49,6 +49,13 @@ public class GoogleObserver : MonoBehaviour
 
 	public void ShowLeaderboard()
 	{
+		if (Social.localUser.authenticated == false)
+		{
+			Debug.Log("User not authenticated");
+			SignInWithGoogle();
+			return;
+		}
+		
 		Social.ShowLeaderboardUI();
 	}
 

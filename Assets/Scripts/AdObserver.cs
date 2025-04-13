@@ -1,3 +1,5 @@
+using System;
+using Unity.Services.LevelPlay;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,9 +15,11 @@ public class AdObserver : MonoBehaviour
 
 	private bool _isEligibleForReward;
 	private UnityAction _onAdSuccess;
+	private LevelPlayInterstitialAd _interstitialAd;
 
 	private void Start()
 	{
+		_interstitialAd = new("nbevt2zdzrvqasgy");
 		IronSource.Agent.setConsent(true);
 		IronSource.Agent.setMetaData("do_not_sell", "false");
 		IronSource.Agent.setMetaData("is_child_directed", "false");
@@ -39,6 +43,18 @@ public class AdObserver : MonoBehaviour
 	private void SdkInitializationCompletedEvent()
 	{
 		Debug.Log("IronSource SDK initialized successfully.");
+	}
+
+	public void ShowAd()
+	{
+		if (_interstitialAd.IsAdReady())
+		{
+			_interstitialAd.ShowAd();
+		}
+		else
+		{
+			_interstitialAd.LoadAd();
+		}
 	}
 
 	public void ShowRewardAd(UnityAction onAdSuccess)
