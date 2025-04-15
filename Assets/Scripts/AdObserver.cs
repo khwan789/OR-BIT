@@ -17,7 +17,12 @@ public class AdObserver : MonoBehaviour
 	private UnityAction _onAdSuccess;
 	private LevelPlayInterstitialAd _interstitialAd;
 
-	private void Start()
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
 	{
 		_interstitialAd = new("nbevt2zdzrvqasgy");
 		IronSource.Agent.setConsent(true);

@@ -8,6 +8,11 @@ public class GoogleObserver : MonoBehaviour
 	public static GoogleObserver Get => GameManager.Instance.googleObserver;
 	private AppUpdateManager _appUpdateManager;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
         PlayGamesPlatform.Activate();
