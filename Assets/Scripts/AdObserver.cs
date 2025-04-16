@@ -15,16 +15,9 @@ public class AdObserver : MonoBehaviour
 
 	private bool _isEligibleForReward;
 	private UnityAction _onAdSuccess;
-	private LevelPlayInterstitialAd _interstitialAd;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
+	private void Start()
 	{
-		_interstitialAd = new("nbevt2zdzrvqasgy");
 		IronSource.Agent.setConsent(true);
 		IronSource.Agent.setMetaData("do_not_sell", "false");
 		IronSource.Agent.setMetaData("is_child_directed", "false");
@@ -42,7 +35,7 @@ public class AdObserver : MonoBehaviour
 
 		IronSourceEvents.onSdkInitializationCompletedEvent += SdkInitializationCompletedEvent;
 
-		IronSource.Agent.init(_appKey, IronSourceAdUnits.REWARDED_VIDEO);
+		IronSource.Agent.init(_appKey, IronSourceAdUnits.INTERSTITIAL);
 	}
 
 	private void SdkInitializationCompletedEvent()
@@ -52,13 +45,18 @@ public class AdObserver : MonoBehaviour
 
 	public void ShowAd()
 	{
-		if (_interstitialAd.IsAdReady())
+		var available = IronSource.Agent.isInterstitialReady();
+		Debug.Log("ShowAdStart");   
+
+		if (available)
 		{
-			_interstitialAd.ShowAd();
+			Debug.Log("ShowAd");   
+			IronSource.Agent.showInterstitial("Game_Over");
 		}
 		else
 		{
-			_interstitialAd.LoadAd();
+			Debug.Log("ShowAdFailed");   
+			IronSource.Agent.loadInterstitial();
 		}
 	}
 

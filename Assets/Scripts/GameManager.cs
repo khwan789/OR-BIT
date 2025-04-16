@@ -76,10 +76,10 @@ public class GameManager : MonoBehaviour
         SaveGame();
         CheckAchievementsCleared();
         
-        if(currentRound >= 1 && totalGamePlay % 2 == 0)
-        {
+        // if(currentRound >= 1 && totalGamePlay % 2 == 0)
+        // {
             adObserver.ShowAd();
-        }
+        // }
     }
 
     public void IncreaseScore(float amount)
