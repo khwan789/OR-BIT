@@ -28,11 +28,23 @@ public class MainMenuUIManager : MonoBehaviour
     private float charSelectContentY;
     public GameObject bgmOff;
     public GameObject sfxOff;
-    public GameObject swapOff;
+    //public GameObject swapOff;
 
     //menu
     public GameObject menuPopup;
 
+    // These are references to the UI buttons' RectTransforms
+    public UnityEngine.UI.Button jumpButtonEx;
+    public UnityEngine.UI.Button slideButtonEx;
+
+    private RectTransform jRect, sRect;
+
+    // Default values
+    private bool defaultsCaptured = false;
+    private Vector2 jPosDef, sPosDef;
+    private Vector2 jMinDef, sMinDef;
+    private Vector2 jMaxDef, sMaxDef;
+    private Vector2 jPivotDef, sPivotDef;
 
     private void Start()
     {
@@ -46,6 +58,7 @@ public class MainMenuUIManager : MonoBehaviour
         // Optionally check for any new unlocked character and show red dot.
         CheckForNewUnlock();
         menuUpdate();
+        UpdateButtonPositionEx();
     }
 
     // Update()는 현재 필요 없으므로 제거 가능
@@ -155,14 +168,7 @@ public class MainMenuUIManager : MonoBehaviour
             sfxOff.SetActive(true);
         }
 
-        if (GameManager.Instance.SwapButtons)
-        {
-            swapOff.SetActive(false);
-        }
-        else
-        {
-            swapOff.SetActive(true);
-        }
+        
     }
     public void ToggleButtonSwap()
     {
@@ -174,6 +180,63 @@ public class MainMenuUIManager : MonoBehaviour
 
         // Play a sound to confirm the action
         AudioManager.Instance.PlaySFX(SFXType.Button);
-        menuUpdate();
+        UpdateButtonPositionEx();
+    }
+
+    public void UpdateButtonPositionEx()
+    {
+        // Cache RectTransforms
+        if (jRect == null) jRect = jumpButtonEx.GetComponent<RectTransform>();
+        if (sRect == null) sRect = slideButtonEx.GetComponent<RectTransform>();
+
+        // On first run, capture all the defaults
+        if (!defaultsCaptured)
+        {
+            jPosDef = jRect.anchoredPosition;
+            sPosDef = sRect.anchoredPosition;
+            jMinDef = jRect.anchorMin;
+            sMinDef = sRect.anchorMin;
+            jMaxDef = jRect.anchorMax;
+            sMaxDef = sRect.anchorMax;
+            jPivotDef = jRect.pivot;
+            sPivotDef = sRect.pivot;
+            defaultsCaptured = true;
+        }
+
+        // Apply swap or restore
+        if (GameManager.Instance.SwapButtons)
+        {
+            // Swap positions
+            Vector2 tmpPos = jRect.anchoredPosition;
+            jRect.anchoredPosition = sRect.anchoredPosition;
+            sRect.anchoredPosition = tmpPos;
+
+            // Swap anchorMin
+            Vector2 tmpMin = jRect.anchorMin;
+            jRect.anchorMin = sRect.anchorMin;
+            sRect.anchorMin = tmpMin;
+
+            // Swap anchorMax
+            Vector2 tmpMax = jRect.anchorMax;
+            jRect.anchorMax = sRect.anchorMax;
+            sRect.anchorMax = tmpMax;
+
+            // Swap pivot
+            Vector2 tmpPivot = jRect.pivot;
+            jRect.pivot = sRect.pivot;
+            sRect.pivot = tmpPivot;
+        }
+        else
+        {
+            // Restore defaults
+            jRect.anchoredPosition = jPosDef;
+            sRect.anchoredPosition = sPosDef;
+            jRect.anchorMin = jMinDef;
+            sRect.anchorMin = sMinDef;
+            jRect.anchorMax = jMaxDef;
+            sRect.anchorMax = sMaxDef;
+            jRect.pivot = jPivotDef;
+            sRect.pivot = sPivotDef;
+        }
     }
 }
