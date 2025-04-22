@@ -1,11 +1,13 @@
+#if UNITY_ANDROID
 using GooglePlayGames;
-using System.Collections;
 using Google.Play.AppUpdate;
+using System.Collections;
+#endif
 using UnityEngine;
 
-public class GoogleObserver : MonoBehaviour
+public class GoogleObserver : SocialObserverBase
 {
-	public static GoogleObserver Get => GameManager.Instance.googleObserver;
+#if UNITY_ANDROID
 	private AppUpdateManager _appUpdateManager;
 
     private void Start()
@@ -75,5 +77,5 @@ public class GoogleObserver : MonoBehaviour
              var appUpdateInfoResult = appUpdateInfoOperation.GetResult();
          }
      }
-
+#endif
 }

@@ -10,7 +10,7 @@ public class AdObserver : MonoBehaviour
 #if UNITY_ANDROID
 	private const string _appKey = "218e22805";
 #elif UNITY_IPHONE
-		private const string _appKey = "1fad4069d";
+	private const string _appKey = "21c1fa3dd";
 #endif
 
 	private bool _isEligibleForReward;
@@ -46,16 +46,16 @@ public class AdObserver : MonoBehaviour
 	public void ShowAd()
 	{
 		var available = IronSource.Agent.isInterstitialReady();
-		Debug.Log("ShowAdStart");   
+		Debug.Log("ShowAdStart");
 
 		if (available)
 		{
-			Debug.Log("ShowAd");   
+			Debug.Log("ShowAd");
 			IronSource.Agent.showInterstitial("Game_Over");
 		}
 		else
 		{
-			Debug.Log("ShowAdFailed");   
+			Debug.Log("ShowAdFailed");
 			IronSource.Agent.loadInterstitial();
 		}
 	}
