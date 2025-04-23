@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5283037988381564017}
   - component: {fileID: 6623768972492830863}
-  - component: {fileID: 2907657148702978519}
   m_Layer: 0
   m_Name: Observers
   m_TagString: Untagged
@@ -43,18 +42,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b54b0fc0f081f79458f4904ddbaf9b87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2907657148702978519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1184401096169286480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5278188ea635d8479b73e756dfd7d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6919017715084983138
@@ -109,8 +96,7 @@ MonoBehaviour:
   totalGamePlay: 0
   isTutorialCleared: 0
   speedMultiplier: 1
-  adObserver: {fileID: 6623768972492830863}
-  googleObserver: {fileID: 2907657148702978519}
+  adObserver: {fileID: 7248030092057923459, guid: 8e4626c200dbf5a48bf621b401ca002b, type: 3}
 --- !u!81 &3143975522756570158
 AudioListener:
   m_ObjectHideFlags: 0

@@ -5693,7 +5693,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1119796751
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5711,9 +5711,9 @@ RectTransform:
   - {fileID: 587376003}
   m_Father: {fileID: 1857278633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 232.59, y: -346.4}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1119796752
@@ -14881,8 +14881,9 @@ MonoBehaviour:
   playerStats: {fileID: 92460296}
   bgmOff: {fileID: 1544017104}
   sfxOff: {fileID: 1250592458}
-  swapOff: {fileID: 0}
   menuPopup: {fileID: 183502877}
+  jumpButtonEx: {fileID: 0}
+  slideButtonEx: {fileID: 0}
 --- !u!1 &1822106375
 GameObject:
   m_ObjectHideFlags: 0
