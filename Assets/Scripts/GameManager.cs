@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
 	{
 #if UNITY_ANDROID
 	    socialObserver = new GoogleObserver();
+	    StartCoroutine(socialObserver.CheckUpdateCoroutine());
 #elif UNITY_IOS
 		socialObserver = new IOSObserver();
 #endif
@@ -69,10 +70,8 @@ public class GameManager : MonoBehaviour
 
 	public void StartGame()
 	{
-		if (Time.timeScale != 1)
-		{
+		if (Mathf.Approximately(Time.timeScale, 1) == false)
 			Time.timeScale = 1;
-		}
 		ResetInGameStats();
 		IncreaseGamePlay();
 		AudioManager.Instance.PlayGamePlayBGM();

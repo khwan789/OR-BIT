@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class SocialObserverBase
@@ -20,7 +21,12 @@ public abstract class SocialObserverBase
 	{
 	}
 
-	private void Start()
+	public virtual IEnumerator CheckUpdateCoroutine()
+	{
+		yield break;
+	}
+	
+	public SocialObserverBase()
 	{
 #if UNITY_EDITOR
 		return;

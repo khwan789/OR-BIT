@@ -10,72 +10,70 @@ public class GoogleObserver : SocialObserverBase
 #if UNITY_ANDROID
 	private AppUpdateManager _appUpdateManager;
 
-    private void Start()
-    {
-	    if (Application.platform != RuntimePlatform.Android)
-		    return;
-	    
-        PlayGamesPlatform.Activate();
-	    _appUpdateManager = new();
-	    
-        SignInWithGoogle();
-        CheckForUpdate();
-    }
-
-    private void SignInWithGoogle()
-    {
-        Social.localUser.Authenticate(isSuccess =>
-        {
-	        if (isSuccess)
-	        {
-		        Debug.Log("Google Play Games sign-in successful");
-	        }
-	        else
-	        {
-		        Debug.Log("Google Play Games sign-in failed");
-	        }
-        });
-    }
-
-    public void SetLeaderboardScore(int score)
+	protected override void SignIn()
 	{
-		Social.ReportScore(score, GPGSIds.leaderboard_highscore, success =>
+		base.SignIn();
+
+		if (Application.platform != RuntimePlatform.Android)
+			return;
+
+		PlayGamesPlatform.Activate();
+		_appUpdateManager = new();
+
+		SignInWithGoogle();
+	}
+
+	private void SignInWithGoogle()
+	{
+		Social.localUser.Authenticate(isSuccess =>
 		{
-			if (success)
+			if (isSuccess)
 			{
-				Debug.Log("Score reported successfully");
+				Debug.Log("Google Play Games sign-in successful");
 			}
 			else
 			{
-				Debug.Log("Unable to report score");
+				Debug.Log("Google Play Games sign-in failed");
 			}
 		});
 	}
 
-	public void ShowLeaderboard()
+	public override void SetLeaderboardScore(int score)
 	{
+		base.SetLeaderboardScore(score);
+
+		Social.ReportScore(score, GPGSIds.leaderboard_highscore, success => { Debug.Log(success ? "Score reported successfully" : "Unable to report score"); });
+	}
+
+	public override void ShowLeaderboard()
+	{
+		base.ShowLeaderboard();
+
 		if (Social.localUser.authenticated == false)
 		{
 			Debug.Log("User not authenticated");
 			SignInWithGoogle();
 			return;
 		}
-		
+
 		Social.ShowLeaderboardUI();
 	}
 
-	private void CheckForUpdate() => StartCoroutine(CheckForUpdateRoutine());
-	
-	private IEnumerator CheckForUpdateRoutine()
-     {
-         var appUpdateInfoOperation = _appUpdateManager.GetAppUpdateInfo();
+	public override IEnumerator CheckUpdateCoroutine()
+	{
+		var appUpdateInfoOperation = _appUpdateManager.GetAppUpdateInfo();
 
-         yield return appUpdateInfoOperation;
+		yield return appUpdateInfoOperation;
 
-         if (appUpdateInfoOperation.IsSuccessful)
-         {
-             var appUpdateInfoResult = appUpdateInfoOperation.GetResult();
-         }
-     }
+		if (appUpdateInfoOperation.IsSuccessful)
+		{
+			var appUpdateInfoResult = appUpdateInfoOperation.GetResult();
+			
+			if (appUpdateInfoResult.UpdateAvailability == UpdateAvailability.UpdateAvailable)
+			{
+				var appUpdateRequest = _appUpdateManager.StartUpdate(appUpdateInfoResult, AppUpdateOptions.ImmediateAppUpdateOptions());
+			}
+		}
+	}
 #endif
 }
