@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 #if UNITY_ANDROID
-	    socialObserver = = new GoogleObserver();
+	    socialObserver = new GoogleObserver();
 #elif UNITY_IOS
 		socialObserver = new IOSObserver();
 #endif
