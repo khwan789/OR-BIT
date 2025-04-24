@@ -96,7 +96,7 @@ MonoBehaviour:
   totalGamePlay: 0
   isTutorialCleared: 0
   speedMultiplier: 1
-  adObserver: {fileID: 7248030092057923459, guid: 8e4626c200dbf5a48bf621b401ca002b, type: 3}
+  adObserver: {fileID: 6623768972492830863}
 --- !u!81 &3143975522756570158
 AudioListener:
   m_ObjectHideFlags: 0

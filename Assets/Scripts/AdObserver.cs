@@ -34,7 +34,7 @@ public class AdObserver : MonoBehaviour
 
 		IronSourceEvents.onSdkInitializationCompletedEvent += SdkInitializationCompletedEvent;
 
-		IronSource.Agent.init(_appKey, IronSourceAdUnits.INTERSTITIAL);
+		IronSource.Agent.init(_appKey, IronSourceAdUnits.INTERSTITIAL, IronSourceAdUnits.REWARDED_VIDEO);
 	}
 
 	private void SdkInitializationCompletedEvent()
@@ -61,6 +61,10 @@ public class AdObserver : MonoBehaviour
 
 	public void ShowRewardAd(UnityAction onAdSuccess)
 	{
+#if UNITY_EDITOR
+		onAdSuccess?.Invoke();
+		return;
+#endif
 		var available = IronSource.Agent.isRewardedVideoAvailable();
 		Debug.Log(available);
 
