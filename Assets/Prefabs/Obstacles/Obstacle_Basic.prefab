@@ -81,6 +81,7 @@ MonoBehaviour:
   isTextNeeded: 1
   scoreAmount: 100
   goldAmount: 0
+  slowDown: 0
 --- !u!1 &4809875499927624164
 GameObject:
   m_ObjectHideFlags: 0

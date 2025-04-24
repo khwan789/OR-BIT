@@ -188,9 +188,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6e06ef03f77ca4fa6e1d9cd81e8aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isObstacle: 0
   isTextNeeded: 0
   scoreAmount: 0
   goldAmount: 0
+  slowDown: 0
 --- !u!1 &3311958171731700855
 GameObject:
   m_ObjectHideFlags: 0

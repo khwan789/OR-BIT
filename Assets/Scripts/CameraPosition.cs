@@ -4,7 +4,7 @@ using UnityEngine;
 public class CameraPosition : MonoBehaviour
 {
     private GameManager gameManager;
-    private ObjectPlayer player; // Reference to the player
+    public ObjectPlayer player; // Reference to the player
     public Transform planet; // Reference to the planet
     public float baseFollowDistance = 5f; // Default follow distance
     public float smoothSpeed = 0.125f; // Smoothing factor
@@ -19,7 +19,7 @@ public class CameraPosition : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
-        player = FindObjectOfType<ObjectPlayer>();
+        FindPlayer();
         myCam = GetComponent<Camera>();
     }
 
@@ -34,23 +34,40 @@ public class CameraPosition : MonoBehaviour
         isFollowing = true; // Temporarily stop regular camera follow
     }
 
+    private void Update()
+    {
+        
+    }
+
     void LateUpdate()
     {
-        playerPosition = player.basePosition;
-
-        if (gameManager.isPlaying)
+        if (player == null && gameManager.isRevived)
         {
-            // Regular follow logic
-            Vector3 playerToPlanetDirection = (playerPosition - planet.position).normalized;
-            Vector3 tangentialDirection = Vector3.Cross(playerToPlanetDirection, Vector3.forward).normalized;
+            FindPlayer();
+        }
+        if (player != null)
+        {
+            playerPosition = player.basePosition;
 
-            Vector3 targetPosition = playerPosition + tangentialDirection * baseFollowDistance * player.direction;
-            targetPosition.z = transform.position.z;
+            if (gameManager.isPlaying)
+            {
+                // Regular follow logic
+                Vector3 playerToPlanetDirection = (playerPosition - planet.position).normalized;
+                Vector3 tangentialDirection = Vector3.Cross(playerToPlanetDirection, Vector3.forward).normalized;
 
-            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * gameManager.speedMultiplier * Time.deltaTime);
+                Vector3 targetPosition = playerPosition + tangentialDirection * baseFollowDistance * player.direction;
+                targetPosition.z = transform.position.z;
+
+                transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * gameManager.speedMultiplier * Time.deltaTime);
+            }
         }
 
         //CameraSize();
+    }
+
+    public void FindPlayer()
+    {
+        player = FindObjectOfType<ObjectPlayer>();
     }
 
     void CameraSize()

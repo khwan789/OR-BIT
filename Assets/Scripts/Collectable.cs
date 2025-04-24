@@ -14,6 +14,7 @@ public class Collectable : MonoBehaviour
     public bool isTextNeeded;
     public float scoreAmount = 1;
     public float goldAmount = 1;
+    public float slowDown = 0.1f;
 
     private void Start()
     {
@@ -37,19 +38,26 @@ public class Collectable : MonoBehaviour
     {
         if (isTextNeeded)
         {
-            Color textColor;
-            float amount;
-            if (scoreAmount > 0)
+            if (slowDown > 0)
             {
-                textColor = Color.white;
-                amount = GetScoreAmount();
+                ShowFloatingTextSpeed("Slow Down", position, Color.white);
             }
             else
             {
-                textColor = Color.yellow;
-                amount = GetGoldAmount();
+                float amount;
+                Color textColor;
+                if (scoreAmount > 0)
+                {
+                    textColor = Color.white;
+                    amount = GetScoreAmount();
+                }
+                else
+                {
+                    textColor = Color.yellow;
+                    amount = GetGoldAmount();
+                }
+                ShowFloatingText(amount, position, textColor);
             }
-            ShowFloatingText(amount, position, textColor);
         }
     }
 
@@ -62,6 +70,18 @@ public class Collectable : MonoBehaviour
         if (ft != null)
         {
             ft.SetText("+" + num, color);
+        }
+    }
+
+    void ShowFloatingTextSpeed(string text, Vector3 position, Color color)
+    {
+        GameObject floatingText = objectPoolManager.GetFloatingText();
+        // 매번 Camera.main을 호출하지 않고 캐싱된 mainCam 사용
+        floatingText.transform.position = mainCam.WorldToScreenPoint(position);
+        FloatingText ft = floatingText.GetComponent<FloatingText>();
+        if (ft != null)
+        {
+            ft.SetText(text, color);
         }
     }
 

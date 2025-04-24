@@ -34,6 +34,7 @@ public abstract class ObjectPlayer : MonoBehaviour
     protected float targetDistance;                                   // 목표 거리 (점프 전후)
     public int direction = 1;                                         // 이동 방향 (1: 시계, -1: 반시계)
     protected float previousAngle = 0f;                               // 이전 프레임의 각도 (점수 계산용)
+    protected float slowDownValue = 0f;
 
     // Invincibility Coroutine 참조 (중복 실행 방지)
     private Coroutine invincCoroutine;
@@ -63,7 +64,7 @@ public abstract class ObjectPlayer : MonoBehaviour
             Debug.LogError("Planet (Ground 태그)가 존재하지 않습니다!");
         }
 
-        currentDistance = startDistance = Vector3.Distance(transform.position, planet.position);
+        currentDistance = startDistance = 25;
         targetDistance = currentDistance;
 
         animator = GetComponent<Animator>();
@@ -80,6 +81,11 @@ public abstract class ObjectPlayer : MonoBehaviour
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        if (gameManager.isRevived)
+        {
+            ClearCollectablesInRange();
         }
     }
 
@@ -126,7 +132,7 @@ public abstract class ObjectPlayer : MonoBehaviour
     {
         float aroundSpeed = orbitSpeed;
 
-        transform.RotateAround(planet.position, Vector3.back, direction * aroundSpeed * gameManager.speedMultiplier * Time.deltaTime);
+        transform.RotateAround(planet.position, Vector3.back, direction * aroundSpeed * (gameManager.speedMultiplier - slowDownValue) * Time.deltaTime);
 
         Vector3 directionToPlanet = (transform.position - planet.position).normalized;
         transform.position = planet.position + directionToPlanet * currentDistance;
@@ -246,7 +252,6 @@ public abstract class ObjectPlayer : MonoBehaviour
     // 게임 오버 효과 후 GameOver 호출
     protected virtual IEnumerator WaitForGameOver(GameObject effect)
     {
-        AudioManager.Instance.StopBGM();
         ParticleSystem ps = effect.GetComponent<ParticleSystem>();
         if (ps != null)
         {
@@ -260,7 +265,6 @@ public abstract class ObjectPlayer : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
         gameManager.GameOver();
-        AudioManager.Instance.PlaySFX(SFXType.GameOver);
         Destroy(effect);
     }
 
@@ -286,7 +290,16 @@ public abstract class ObjectPlayer : MonoBehaviour
             {
                 GameObject effect = Instantiate(gameOverEffect, transform.position, Quaternion.identity);
                 effect.transform.parent = null;
-                gameManager.StartCoroutine(WaitForGameOver(effect));
+                if (Application.internetReachability != NetworkReachability.NotReachable && gameManager.currentRound >= 1 && !gameManager.isAskingRevive)
+                {
+                    gameManager.revivePos = transform.position;
+                    gameManager.isAskingRevive = true;
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    gameManager.StartCoroutine(WaitForGameOver(effect));
+                }
                 Destroy(gameObject);
             }
             else if (isInvinc)
@@ -308,6 +321,15 @@ public abstract class ObjectPlayer : MonoBehaviour
                 collectable.ReturnToPool();
             }
         }
+        else if (collision.gameObject.CompareTag("SlowDown"))
+        {
+            slowDownValue += collectable.slowDown;
+            AudioManager.Instance.PlaySFX(SFXType.Invinc);
+            if (collectable != null)
+            {
+                collectable.ReturnToPool(transform.position);
+            }
+        }
     }
 
     // UI 또는 외부에서 호출 가능한 입력 처리 메서드 (PlayerInputManager 이벤트용)
@@ -318,5 +340,23 @@ public abstract class ObjectPlayer : MonoBehaviour
     public virtual void SlideDown(bool _slide)
     {
         isSlidingButtonDown = _slide;
+    }
+    public void ClearCollectablesInRange()
+    {
+        // This will find all enabled Collectable scripts in the scene
+        Collectable[] allCollectables = FindObjectsOfType<Collectable>();
+
+        Vector3 myPos = transform.position;
+        float rSqr = 20 * 20;
+
+        foreach (var c in allCollectables)
+        {
+            // squared distance check is slightly faster than Vector3.Distance
+            if ((c.transform.position - myPos).sqrMagnitude <= rSqr)
+            {
+                // call whatever your pooling method is
+                c.ReturnToPool();
+            }
+        }
     }
 }

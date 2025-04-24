@@ -14882,8 +14882,8 @@ MonoBehaviour:
   bgmOff: {fileID: 1544017104}
   sfxOff: {fileID: 1250592458}
   menuPopup: {fileID: 183502877}
-  jumpButtonEx: {fileID: 0}
-  slideButtonEx: {fileID: 0}
+  jumpButtonEx: {fileID: 1631337095}
+  slideButtonEx: {fileID: 838342245}
 --- !u!1 &1822106375
 GameObject:
   m_ObjectHideFlags: 0

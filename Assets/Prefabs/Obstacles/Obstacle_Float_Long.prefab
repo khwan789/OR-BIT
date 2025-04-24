@@ -379,6 +379,7 @@ MonoBehaviour:
   isTextNeeded: 1
   scoreAmount: 100
   goldAmount: 0
+  slowDown: 0
 --- !u!1001 &4373701224721617322
 PrefabInstance:
   m_ObjectHideFlags: 0

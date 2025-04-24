@@ -9,11 +9,11 @@ TagManager:
   - Collectable
   - Obstacle
   - RoundDetector
-  - GhostSkill
   - InvincSkill
   - PointSpawner
   - Ground
   - TutorialDetector
+  - SlowDown
   layers:
   - Default
   - TransparentFX

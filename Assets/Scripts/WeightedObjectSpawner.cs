@@ -1,12 +1,14 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
 public class CollectableItem
 {
-    public string itemName;      // ±¸ºĞ¿ë ÀÌ¸§ (¼±ÅÃ »çÇ×)
-    public GameObject prefab;    // »ı¼ºÇÒ ÇÁ¸®ÆÕ
-    public float weight;         // ¼ÒÈ¯ weight
+    public string itemName;      // êµ¬ë¶„ìš© ì´ë¦„ (ì„ íƒ ì‚¬í•­)
+    public GameObject prefab;    // ìƒì„±í•  í”„ë¦¬íŒ¹
+    public float weight;         // ì†Œí™˜ weight
+    public int minSpawnRound; // e.g. set to 6 for â€œonly after round 5â€
 }
 
 public class WeightedObjectSpawner : MonoBehaviour
@@ -20,14 +22,14 @@ public class WeightedObjectSpawner : MonoBehaviour
 
     private GameObject currentObject;
     private bool playerInRange = false;
-    private List<GameObject> spawnedObjects = new List<GameObject>(); // »ı¼ºµÈ collectable ¿ÀºêÁ§Æ®µé ÀúÀå
+    private List<GameObject> spawnedObjects = new List<GameObject>(); // ìƒì„±ëœ collectable ì˜¤ë¸Œì íŠ¸ë“¤ ì €ì¥
 
-    // ±âÁ¸ ¾ÆÀÌÅÛ (¿¹: °ñµå, Á¡¼ö)¿Í Ãß°¡ ½ºÅ³ ¾ÆÀÌÅÛµéÀ» ¸ğµÎ Æ÷ÇÔÇÏ´Â ¸®½ºÆ®
+    // ê¸°ì¡´ ì•„ì´í…œ (ì˜ˆ: ê³¨ë“œ, ì ìˆ˜)ì™€ ì¶”ê°€ ìŠ¤í‚¬ ì•„ì´í…œë“¤ì„ ëª¨ë‘ í¬í•¨í•˜ëŠ” ë¦¬ìŠ¤íŠ¸
     public List<CollectableItem> collectableItems;
 
     private void Awake()
     {
-        // Áß½É(0,0,0)¿¡¼­ ÇöÀç À§Ä¡±îÁöÀÇ ¹æÇâ°ú °¢µµ¸¦ °è»êÇØ ¿ÜºÎ·Î ¹Ù¶óº¸µµ·Ï È¸Àü
+        // ì¤‘ì‹¬(0,0,0)ì—ì„œ í˜„ì¬ ìœ„ì¹˜ê¹Œì§€ì˜ ë°©í–¥ê³¼ ê°ë„ë¥¼ ê³„ì‚°í•´ ì™¸ë¶€ë¡œ ë°”ë¼ë³´ë„ë¡ íšŒì „
         Vector3 direction = transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
@@ -70,32 +72,38 @@ public class WeightedObjectSpawner : MonoBehaviour
         player = PlayerManager.Instance.transform;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if (player == null) return;
-
-        bool isInRange = IsPlayerWithinDistance();
-
-        if (isInRange && !playerInRange)
+        if (player == null && GameManager.Instance.isRevived)
         {
-            playerInRange = true;
+            StartCoroutine(WaitForPlayerAndSpawn());
         }
-        else if (!isInRange && playerInRange)
+
+        if (player != null)
         {
-            playerInRange = false;
-            if (currentObject != null)
+            bool isInRange = IsPlayerWithinDistance();
+
+            if (isInRange && !playerInRange)
             {
-                poolManager.ReturnToPool(currentObject);
-                currentObject = null;
+                playerInRange = true;
             }
-            // »ı¼ºµÈ ¸ğµç collectable ¿ÀºêÁ§Æ®¸¦ Ç®·Î ¹İÈ¯
-            foreach (GameObject obj in spawnedObjects)
+            else if (!isInRange && playerInRange)
             {
-                if (obj != null)
-                    poolManager.ReturnToPool(obj);
+                playerInRange = false;
+                if (currentObject != null)
+                {
+                    poolManager.ReturnToPool(currentObject);
+                    currentObject = null;
+                }
+                // ìƒì„±ëœ ëª¨ë“  collectable ì˜¤ë¸Œì íŠ¸ë¥¼ í’€ë¡œ ë°˜í™˜
+                foreach (GameObject obj in spawnedObjects)
+                {
+                    if (obj != null)
+                        poolManager.ReturnToPool(obj);
+                }
+                spawnedObjects.Clear();
+                SpawnRandomObject();
             }
-            spawnedObjects.Clear();
-            SpawnRandomObject();
         }
     }
 
@@ -116,7 +124,7 @@ public class WeightedObjectSpawner : MonoBehaviour
             currentObject.transform.position = transform.position;
             currentObject.transform.rotation = transform.rotation;
 
-            // ¸¸¾à »ı¼ºµÈ ¿ÀºêÁ§Æ®°¡ Obstacle ÅÂ±×¶ó¸é Ãß°¡·Î collectable ¿ÀºêÁ§Æ® »ı¼º
+            // ë§Œì•½ ìƒì„±ëœ ì˜¤ë¸Œì íŠ¸ê°€ Obstacle íƒœê·¸ë¼ë©´ ì¶”ê°€ë¡œ collectable ì˜¤ë¸Œì íŠ¸ ìƒì„±
             if (currentObject.CompareTag("Obstacle"))
             {
                 SpawnCollectableObjects(currentObject);
@@ -140,29 +148,36 @@ public class WeightedObjectSpawner : MonoBehaviour
     {
         Transform[] spawnPoints = obstacle.GetComponentsInChildren<Transform>();
 
-        // ÀüÃ¼ weight ÇÕ°è °è»ê
-        float totalWeight = 0f;
+        // First, build a list of only those items weâ€™re allowed to spawn right now:
+        int currentRound = GameManager.Instance.currentRound;
+        var eligibleItems = new List<CollectableItem>();
         foreach (var item in collectableItems)
         {
-            totalWeight += item.weight;
+            if (currentRound >= item.minSpawnRound)
+                eligibleItems.Add(item);
         }
 
-        // °¢ spawnPoint¿¡¼­ weight¿¡ µû¸¥ ·£´ı ¼±ÅÃÀ¸·Î ¾ÆÀÌÅÛ »ı¼º
+        // Calculate the total weight of only the eligible items
+        float totalWeight = 0f;
+        foreach (var item in eligibleItems)
+            totalWeight += item.weight;
+
+        // Now do the usual weightedâ€random for each spawn point
         foreach (Transform spawnPoint in spawnPoints)
         {
-            if (spawnPoint.CompareTag("PointSpawner"))
-            {
-                float randomWeight = Random.Range(0f, totalWeight);
-                float cumulative = 0f;
+            if (!spawnPoint.CompareTag("PointSpawner"))
+                continue;
 
-                foreach (var item in collectableItems)
+            float randomWeight = Random.Range(0f, totalWeight);
+            float cumulative = 0f;
+
+            foreach (var item in eligibleItems)
+            {
+                cumulative += item.weight;
+                if (randomWeight <= cumulative)
                 {
-                    cumulative += item.weight;
-                    if (randomWeight <= cumulative)
-                    {
-                        SpawnItemAtPoint(item.prefab, spawnPoint.position);
-                        break;
-                    }
+                    SpawnItemAtPoint(item.prefab, spawnPoint.position);
+                    break;
                 }
             }
         }

@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour
 	public AdObserver adObserver;
 	public SocialObserverBase socialObserver;
 
+	public bool isAskingRevive = false;
+	public bool isRevived = false;
+	public Vector3 revivePos;
+
 	private void Awake()
 	{
 		QualitySettings.vSyncCount = 0;
@@ -78,9 +82,25 @@ public class GameManager : MonoBehaviour
 		isPlaying = true;
 	}
 
+    public void ReviveAd() => adObserver.ShowRewardAd(Revive);
+
+    public void Revive()
+	{
+		CharacterLoader characterLoader = FindObjectOfType<CharacterLoader>();
+		if (characterLoader != null)
+		{
+			characterLoader.ChangeToEquippedCharacter(revivePos);
+			isRevived = true;
+		}
+	}
+
 	public void GameOver()
 	{
-		isPlaying = false;
+        isPlaying = false;
+        AudioManager.Instance.StopBGM();
+        AudioManager.Instance.PlaySFX(SFXType.GameOver);
+		isAskingRevive = false;
+		isRevived = false;
 		Time.timeScale = 0;
 		// ���� ���� �� ���� ����
 		if (currentScore > highScore)

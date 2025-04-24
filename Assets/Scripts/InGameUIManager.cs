@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Unity.VisualScripting;
 
 public class InGameUIManager : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class InGameUIManager : MonoBehaviour
     public TextMeshProUGUI roundUpText;
     public TextMeshProUGUI multiplierText;
 
+    // 게임 부활 UI
+    public GameObject revivePopup;
+    public TextMeshProUGUI reviveTimer_Text;
+
     // 게임 오버 UI
     public GameObject gameOverPopup;
     public TextMeshProUGUI bestScoreOver_Text;
@@ -26,7 +31,10 @@ public class InGameUIManager : MonoBehaviour
     private int golds;
     private int highScore;
     private bool isHighScore = false;
+    private bool isAskRevive = false;
     private bool isGameOver = false;
+    private bool isRevive = false;
+    private bool isReviveSkip = false;
 
     // UI 업데이트 주기를 조절 (예: 0.1초마다 업데이트)
     private float updateInterval = 0.1f;
@@ -85,6 +93,11 @@ public class InGameUIManager : MonoBehaviour
             }
         }
 
+        if (gameManager.isAskingRevive && !isAskRevive)
+        {
+            isAskRevive = true;
+            StartCoroutine(ReviveUI());
+        }
         // 게임 오버 체크는 매 프레임 확인해도 큰 부담은 없으므로 그대로 사용
         if (!gameManager.isPlaying && !isGameOver)
         {
@@ -135,6 +148,40 @@ public class InGameUIManager : MonoBehaviour
             jumpButtonRect.pivot = slideButtonRect.pivot;
             slideButtonRect.pivot = tempPivot;
         }
+    }
+
+    IEnumerator ReviveUI()
+    {
+        revivePopup.SetActive(true);
+        float timer = 3f;               // make this a float
+
+        while (timer > 0f)
+        {
+            if (isReviveSkip || isRevive)
+                yield break;            // exit if they choose
+
+            timer -= Time.deltaTime;    // subtract the actual delta
+            reviveTimer_Text.text = Mathf.CeilToInt(timer).ToString();
+            yield return null;          // wait one frame
+        }
+
+        // time ran out
+        revivePopup.SetActive(false);
+        gameManager.GameOver();
+    }
+
+    public void WatchAdForRevive()
+    {
+        isRevive = true;
+        revivePopup.SetActive(false);
+        gameManager.ReviveAd();
+    }
+
+    public void SkipRevive()
+    {
+        isReviveSkip = true;
+        revivePopup.SetActive(false);
+        gameManager.GameOver();
     }
 
     private void GameOverUI()

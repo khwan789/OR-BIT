@@ -52,12 +52,20 @@ MonoBehaviour:
   - itemName: 
     prefab: {fileID: 0}
     weight: 150
+    minSpawnRound: 0
   - itemName: 
     prefab: {fileID: 1050432726417154929, guid: 0b5b0d0b43453c046893914b4aea70ba, type: 3}
     weight: 50
+    minSpawnRound: 0
   - itemName: 
     prefab: {fileID: 1050432726417154929, guid: 111999e62c44efb4eb25047e3afca648, type: 3}
     weight: 5
+    minSpawnRound: 0
   - itemName: 
     prefab: {fileID: 1050432726417154929, guid: 8d1cc4540bbae724da4a4643be97e1e9, type: 3}
     weight: 2
+    minSpawnRound: 0
+  - itemName: 
+    prefab: {fileID: 3890001731172001876, guid: 5f7e91d19c412024aa9ed083eed7b381, type: 3}
+    weight: 3
+    minSpawnRound: 3
