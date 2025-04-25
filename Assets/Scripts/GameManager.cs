@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 	public bool isTutorialCleared = false;
 	// Speed multiplier: ���� �� �ӵ� ������ ���
 	public float speedMultiplier = 1f;
+	public float slowDownValue = 0f;
 
 	// PlayerPrefs Ű�� ����� ����
 	private const string HighScoreKey = "HighScore";
@@ -78,7 +79,7 @@ public class GameManager : MonoBehaviour
 			Time.timeScale = 1;
 		ResetInGameStats();
 		IncreaseGamePlay();
-		AudioManager.Instance.PlayGamePlayBGM();
+		AudioManager.Instance.PlayMainMenuBGM();
 		isPlaying = true;
 	}
 
@@ -147,6 +148,7 @@ public class GameManager : MonoBehaviour
 		currentScore = 0f;
 		currentRound = 0;
 		speedMultiplier = 1f;
+		slowDownValue = 0f;
 	}
 
 	public int GetHighScore() => (int)highScore;

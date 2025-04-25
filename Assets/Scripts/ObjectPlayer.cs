@@ -34,7 +34,6 @@ public abstract class ObjectPlayer : MonoBehaviour
     protected float targetDistance;                                   // 목표 거리 (점프 전후)
     public int direction = 1;                                         // 이동 방향 (1: 시계, -1: 반시계)
     protected float previousAngle = 0f;                               // 이전 프레임의 각도 (점수 계산용)
-    protected float slowDownValue = 0f;
 
     // Invincibility Coroutine 참조 (중복 실행 방지)
     private Coroutine invincCoroutine;
@@ -132,7 +131,7 @@ public abstract class ObjectPlayer : MonoBehaviour
     {
         float aroundSpeed = orbitSpeed;
 
-        transform.RotateAround(planet.position, Vector3.back, direction * aroundSpeed * (gameManager.speedMultiplier - slowDownValue) * Time.deltaTime);
+        transform.RotateAround(planet.position, Vector3.back, direction * aroundSpeed * (gameManager.speedMultiplier - gameManager.slowDownValue) * Time.deltaTime);
 
         Vector3 directionToPlanet = (transform.position - planet.position).normalized;
         transform.position = planet.position + directionToPlanet * currentDistance;
@@ -323,7 +322,7 @@ public abstract class ObjectPlayer : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("SlowDown"))
         {
-            slowDownValue += collectable.slowDown;
+            gameManager.slowDownValue += collectable.slowDown;
             AudioManager.Instance.PlaySFX(SFXType.Invinc);
             if (collectable != null)
             {

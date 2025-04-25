@@ -101,10 +101,13 @@ public class AudioManager : MonoBehaviour
         if (bgmSource == null || mainMenuBGM == null)
             return;
 
+        // If we're already playing this exact clip, do nothing
+        if (bgmSource.isPlaying && bgmSource.clip == mainMenuBGM)
+            return;
+
         bgmSource.clip = mainMenuBGM;
         bgmSource.loop = true;
-        
-            bgmSource.Play();
+        bgmSource.Play();
     }
 
     /// <summary>
