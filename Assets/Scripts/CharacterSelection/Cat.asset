@@ -17,6 +17,6 @@ MonoBehaviour:
   unownedImage: {fileID: 2666440529074131282, guid: ee04ef65c482ccc4c8ffdc39f2605f2d, type: 3}
   characterPrefab: {fileID: 2589992013796469436, guid: 07a65f17a54aecb438c483d161cc1106, type: 3}
   unlockType: 0
-  unlockConditionText: 9 Rounds in Game
+  unlockConditionText: Total 9 Games
   price: 0
   isDefault: 0

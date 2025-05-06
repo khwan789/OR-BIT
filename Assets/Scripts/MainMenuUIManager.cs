@@ -13,6 +13,7 @@ public class MainMenuUIManager : MonoBehaviour
     public TextMeshProUGUI highScore_Text;
     public TextMeshProUGUI totalGold_Text;
     public TextMeshProUGUI totalRound_Text;
+    public TextMeshProUGUI totalGame_Text;
 
     public Button characterSelectButton;
     public GameObject redDotNotification;      // UI element for the red dot
@@ -79,6 +80,7 @@ public class MainMenuUIManager : MonoBehaviour
         highScore_Text.text = gameManager.GetHighScore().ToString();
         totalGold_Text.text = gameManager.GetTotalGold().ToString();
         totalRound_Text.text = gameManager.GetTotalRound().ToString();
+        totalGame_Text.text = gameManager.GetTotalGamePlay().ToString();
     }
 
     private IEnumerator StartGameRoutine()

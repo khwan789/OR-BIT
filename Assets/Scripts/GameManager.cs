@@ -139,8 +139,7 @@ public class GameManager : MonoBehaviour
 
 	public void IncreaseGamePlay()
 	{
-		if (isTutorialCleared)
-			totalGamePlay += 1;
+		totalGamePlay += 1;
 	}
 
 	public void ResetInGameStats()
