@@ -68,4 +68,4 @@ MonoBehaviour:
   - itemName: 
     prefab: {fileID: 3890001731172001876, guid: 5f7e91d19c412024aa9ed083eed7b381, type: 3}
     weight: 3
-    minSpawnRound: 3
+    minSpawnRound: 2

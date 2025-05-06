@@ -25,7 +25,8 @@ public class AchievementManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameManager.Instance;   
+        gameManager = GameManager.Instance;
+        CheckAllAchievements();
     }
 
     public void CheckAllAchievements()
