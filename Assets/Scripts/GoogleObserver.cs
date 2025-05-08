@@ -10,7 +10,12 @@ public class GoogleObserver : SocialObserverBase
 #if UNITY_ANDROID
 	private AppUpdateManager _appUpdateManager;
 
-	protected override void SignIn()
+	public GoogleObserver()
+	{
+		SignIn();
+	}
+
+	protected sealed override void SignIn()
 	{
 		base.SignIn();
 
@@ -42,12 +47,18 @@ public class GoogleObserver : SocialObserverBase
 	{
 		base.SetLeaderboardScore(score);
 
+		if (Application.platform != RuntimePlatform.Android)
+			return;
+
 		Social.ReportScore(score, GPGSIds.leaderboard_highscore, success => { Debug.Log(success ? "Score reported successfully" : "Unable to report score"); });
 	}
 
 	public override void ShowLeaderboard()
 	{
 		base.ShowLeaderboard();
+
+		if (Application.platform != RuntimePlatform.Android)
+			return;
 
 		if (Social.localUser.authenticated == false)
 		{
@@ -61,6 +72,11 @@ public class GoogleObserver : SocialObserverBase
 
 	public override IEnumerator CheckUpdateCoroutine()
 	{
+		yield return base.CheckUpdateCoroutine();
+
+		if (Application.platform != RuntimePlatform.Android)
+			yield break;
+
 		var appUpdateInfoOperation = _appUpdateManager.GetAppUpdateInfo();
 
 		yield return appUpdateInfoOperation;
@@ -68,7 +84,7 @@ public class GoogleObserver : SocialObserverBase
 		if (appUpdateInfoOperation.IsSuccessful)
 		{
 			var appUpdateInfoResult = appUpdateInfoOperation.GetResult();
-			
+
 			if (appUpdateInfoResult.UpdateAvailability == UpdateAvailability.UpdateAvailable)
 			{
 				var appUpdateRequest = _appUpdateManager.StartUpdate(appUpdateInfoResult, AppUpdateOptions.ImmediateAppUpdateOptions());

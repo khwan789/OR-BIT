@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CharacterLoader : MonoBehaviour
@@ -8,7 +9,11 @@ public class CharacterLoader : MonoBehaviour
     private void Awake()
     {
         startPos = this.transform.position;
-        ChangeToEquippedCharacter(startPos);
+    }
+
+    private void Start()
+    {
+	    ChangeToEquippedCharacter(startPos);
     }
 
     public void ChangeToEquippedCharacter()

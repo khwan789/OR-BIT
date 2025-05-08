@@ -20,7 +20,8 @@ public class AdObserver : MonoBehaviour
 		IronSource.Agent.setConsent(true);
 		IronSource.Agent.setMetaData("do_not_sell", "false");
 		IronSource.Agent.setMetaData("is_child_directed", "false");
-
+		IronSource.Agent.validateIntegration();
+		
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 		IronSource.Agent.setMetaData("is_test_suite", "enable");
 #endif
