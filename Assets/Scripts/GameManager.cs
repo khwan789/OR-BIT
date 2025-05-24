@@ -81,7 +81,9 @@ public class GameManager : MonoBehaviour
 		IncreaseGamePlay();
 		AudioManager.Instance.PlayMainMenuBGM();
 		isPlaying = true;
-	}
+        isAskingRevive = false;
+        isRevived = false;
+    }
 
     public void ReviveAd() => adObserver.ShowRewardAd(Revive);
 
@@ -100,8 +102,6 @@ public class GameManager : MonoBehaviour
         isPlaying = false;
         AudioManager.Instance.StopBGM();
         AudioManager.Instance.PlaySFX(SFXType.GameOver);
-		isAskingRevive = false;
-		isRevived = false;
 		Time.timeScale = 0;
 		// ���� ���� �� ���� ����
 		if (currentScore > highScore)
@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
 		SaveGame();
 		CheckAchievementsCleared();
 
-		if (currentRound >= 1 && totalGamePlay % 2 == 0)
+		if (currentRound >= 1 && totalGamePlay % 2 == 0 && !isRevived)
 		{
 			adObserver.ShowAd();
 		}

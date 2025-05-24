@@ -289,7 +289,7 @@ public abstract class ObjectPlayer : MonoBehaviour
             {
                 GameObject effect = Instantiate(gameOverEffect, transform.position, Quaternion.identity);
                 effect.transform.parent = null;
-                if (Application.internetReachability != NetworkReachability.NotReachable && gameManager.currentRound >= 1 && !gameManager.isAskingRevive)
+                if (Application.internetReachability != NetworkReachability.NotReachable && gameManager.currentRound >= 2 && !gameManager.isAskingRevive)
                 {
                     gameManager.revivePos = transform.position;
                     gameManager.isAskingRevive = true;
