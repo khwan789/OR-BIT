@@ -70,7 +70,9 @@ public class GameManager : MonoBehaviour
 
 	private void Update()
 	{
-		socialObserver.Update();
+		// Social services are only created on Android and iOS.  In the Editor,
+		// and on unsupported platforms, this intentionally remains null.
+		socialObserver?.Update();
 	}
 
 	public void StartGame()
@@ -107,7 +109,7 @@ public class GameManager : MonoBehaviour
 		if (currentScore > highScore)
 		{
 			highScore = currentScore;
-			socialObserver.SetLeaderboardScore((int)highScore);
+			socialObserver?.SetLeaderboardScore((int)highScore);
 		}
 		totalRound += currentRound;
 		SaveGame();
@@ -217,6 +219,6 @@ public class GameManager : MonoBehaviour
 	
 	public void ShowLeaderboard()
 	{
-		socialObserver.ShowLeaderboard();
+		socialObserver?.ShowLeaderboard();
 	}
 }
