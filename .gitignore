@@ -106,3 +106,10 @@ OR-BIT_BurstDebugInformation_DoNotShip
 Assets/GooglePlayGames/com.google.play.games/current-build/GooglePlayGamesPlugin-2.0.0.unitypackage.meta
 Assets/ExternalDependencyManager/Editor/1.2.182.meta
 iOSBuilder
+
+# Android native build temp (NDK/CMake intermediates)
+/.utmp/
+
+# External Dependency Manager template backups
+*.gradle.backup
+*.gradle.backup.meta

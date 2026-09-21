@@ -1,19 +1,5 @@
 {
   "dependencies": {
-    "com.apple.unityplugin.core": {
-      "version": "file:../Assets/Tgzs/com.apple.unityplugin.core-3.1.8.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
-    },
-    "com.apple.unityplugin.gamekit": {
-      "version": "file:../Assets/Tgzs/com.apple.unityplugin.gamekit-3.0.2.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {
-        "com.apple.unityplugin.core": "3.1.8"
-      }
-    },
     "com.unity.2d.animation": {
       "version": "13.0.6",
       "depth": 1,
